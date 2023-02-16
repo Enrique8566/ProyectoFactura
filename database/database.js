@@ -1,8 +1,7 @@
 const mysql=require('mysql');
-require('dotenv').config(({path:'./.env'}));
+require('dotenv').config(({path:'./env/.env'}));
 
 //console.log(process.env)
-const host=process.env.host
 //console.log(host)
 
 const conection=mysql.createConnection({
