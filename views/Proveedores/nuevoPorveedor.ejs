@@ -1,0 +1,151 @@
+<script src="https://cdn.lordicon.com/ritcuqlt.js"></script>
+
+<br>
+<div class="container">
+          <div class="row">
+                    <div class="col-md-12">
+                              <div class="Well well-sm">
+                                        <form class="form-horizontal needs-validation"
+                                                  action="/proveedor/nuevoProveedor" method="post"
+                                                  style="margin: auto; max-width: 500px;" novalidate>
+
+                                                  <fieldset>
+                                                            <div>
+                                                                      <legend class="text-center header row align-items-start "
+                                                                                style="margin-left: 30%;">
+                                                                                Proveedor
+                                                                                <lord-icon src="https://cdn.lordicon.com/ckatldkn.json"
+                                                                                          trigger="loop" delay="200"
+                                                                                          style="width:50px;height:50px">
+                                                                                </lord-icon>
+                                                                      </legend>
+                                                            </div>
+                                                            <div class="form-group" style="margin: 5px;">
+                                                                      <div class="col-m-8">
+                                                                                <input type="text" id="rut" name="rut"
+                                                                                          placeholder="RUT"
+                                                                                          class="form-control" required
+                                                                                          maxlength="12" <% if (datos.estado!=0) { %>
+                                                                                                     value="<%= datos.rut %>"
+                                                                                                     <% if(datos.rutV !="") {%> 
+                                                                                                     style="border: dashed #fb5656;"
+                                                                                                     <% } %> 
+                                                                                          <% } %>>
+                                                                      </div>
+                                                            </div>
+                                                            <div class="form-group" style="margin: 5px;">
+                                                                      <div class="col-m-8">
+                                                                                <input type="text" id="razonSocial"
+                                                                                          name="razonSocial"
+                                                                                          placeholder="Razon Social"
+                                                                                          class="form-control" required
+                                                                                          <% if (datos.estado!=0) { %>
+                                                                                          value="<%= datos.razonSocial %>"
+                                                                                          <% } %>>
+                                                                      </div>
+                                                            </div>
+                                                            <div class="form-group" style="margin: 5px;">
+                                                                      <div class="col-m-8">
+                                                                                <input type="text" id="alias"
+                                                                                          name="alias"
+                                                                                          placeholder="Alias"
+                                                                                          class="form-control" required
+                                                                                          <% if (datos.estado!=0) { %>
+                                                                                          value="<%= datos.alias %>"
+
+                                                                                          <% } %>>
+                                                                      </div>
+                                                            </div>
+                                                            <div class="form-group" style="margin: 5px;">
+                                                                      <div class="col-m-8">
+                                                                                <input type="text" id="giro" name="giro"
+                                                                                          placeholder="Giro"
+                                                                                          class="form-control" required
+                                                                                          <% if (datos.estado!=0) { %>
+                                                                                value="<%= datos.giro %>"
+
+                                                                                          <% } %>>
+                                                                      </div>
+                                                            </div>
+                                                            <div class="form-group" style="margin: 5px;">
+                                                                      <div class="col-m-8">
+                                                                                <input type="text" id="direccion"
+                                                                                          name="direccion"
+                                                                                          placeholder="Direccion"
+                                                                                          class="form-control" <% if (datos.estado!=0) { %>
+                                                                                          value="<%= datos.direccion %>"
+
+                                                                                          <% } %>>
+                                                                      </div>
+                                                            </div>
+                                                            <div class="form-group" style="margin: 5px;">
+                                                                      <div class="col-m-8">
+                                                                                <input type="text" id="ciudad"
+                                                                                          name="ciudad"
+                                                                                          placeholder="Ciudad"
+                                                                                          class="form-control" <% if (datos.estado!=0) { %>
+                                                                                                     value="<%= datos.ciudad %>"
+
+                                                                                          <% } %>>
+                                                                      </div>
+                                                            </div>
+                                                            <div class="form-group" style="margin: 5px;">
+                                                                      <div class="col-m-8">
+                                                                                <input type="number" id="telefono"
+                                                                                          name="telefono"
+                                                                                          placeholder="Telefono" maxlength="9"
+                                                                                          class="form-control" <% if(datos.estado!=0) { %>
+                                                                                                    value="<%= datos.fono %>"
+
+                                                                                          <% } %>>
+                                                                      </div>
+                                                            </div>
+                                                            <div class="form-group" style="margin: 5px;">
+                                                                      <div class="col-m-8">
+                                                                                <input type="text" id="correo"
+                                                                                          name="correo"
+                                                                                          placeholder="Correo@direccion.com"
+                                                                                          class="form-control" <% if (datos.estado!=0) { %>
+                                                                                                    value="<%= datos.correo %>"
+                                                                                                    <% if(datos.correoV !="") {%> 
+                                                                                                     style="border: dashed
+                                                                                                              #fb5656;"
+                                                                                                              <% } %> 
+                                                                                                    
+                                                                                          <% } %>>
+                                                                      </div>
+                                                            </div>
+                                                            <div class="form-group"
+                                                                      style="margin-left: 75%; margin-top: 20px;">
+                                                                      <div class="col-m-8">
+                                                                                <button type="submit" id="btnGuardar"
+                                                                                          name="btnGuardar"
+                                                                                          class="form control btn btn-lg btn-warning">Guardar
+                                                                                </button>
+
+                                                                      </div>
+                                                            </div>
+
+                                                  </fieldset>
+                                        </form>
+                              </div>
+                    </div>
+          </div>
+</div>
+
+
+<script>
+          const forms = document.querySelectorAll('.needs-validation')
+
+          // Loop over them and prevent submission
+          Array.from(forms).forEach(form => {
+                    form.addEventListener('submit', event => {
+                              if (!form.checkValidity()) {
+                                        event.preventDefault()
+                                        event.stopPropagation()
+                              }
+
+                              form.classList.add('was-validated')
+                    }, false)
+          })
+</script>

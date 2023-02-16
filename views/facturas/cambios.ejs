@@ -1,0 +1,393 @@
+
+        <script src="https://cdn.lordicon.com/ritcuqlt.js"></script>
+        <!--Select2-->
+         <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+        
+        <div class="container">
+                <div class="row" style="margin: auto; max-width: 700px;">
+                        <div class="col-md-12">
+                                <div class="col-m-8" style="text-align:center;">
+                                        <table style="margin: 0px auto; border: hidden;">
+                                                <tr>
+                                                        <td style="border: hidden;">
+                                                                <legend class="text-center header row align-items-start "
+                                                                        style="font-size: xx-large;">
+                                                                        Facturas
+                                                                </legend>
+                                                        </td>
+                                                        <td> <lord-icon src="https://cdn.lordicon.com/ckatldkn.json"
+                                                                        trigger="loop" delay="200"
+                                                                        style="width:50px;height:50px">
+                                                                </lord-icon>
+                                                        </td>
+                                                </tr>
+                                        </table>
+                                        <span>Datos Guardados</span>
+                                </div>
+                                <div class="row col-m-8">
+
+                                        <table class="table table-striped-columns">
+                                                <tr>
+                                                        <td>ID:</td>
+                                                        <td style="max-width: 100px;">
+                                                                <%= mostrar.id_F %>
+                                                        </td>
+                                                        <td>Total Factura:</td>
+                                                        <td>
+                                                                <%= mostrar.totalFactura %>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>N° Factura:</td>
+                                                        <td>
+                                                                <%= mostrar.factura_id %>
+                                                        </td>
+                                                        <td>Estado:</td>
+                                                        <td>
+                                                                <%= mostrar.estado_id %>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>Usuario:</td>
+                                                        <td>
+                                                                <%= mostrar.user_id_F %>
+                                                        </td>
+                                                        <td>OBS Anulacion:</td>
+                                                        <td>
+                                                                <%= mostrar.obsAnulacion %>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>IDDOC:</td>
+                                                        <td>
+                                                                <%= mostrar.iddoc %>
+                                                        </td>
+                                                        <td>Fecha de Recepcion:</td>
+
+                                                        <td>
+                                                                <% let fecha=mostrar.fechaOficinaParte
+                                                                        fecha=fecha.slice(0,10).split("")
+                                                                        fecha=fecha[8]+fecha[9]+fecha[7]+fecha[5]+fecha[6]+fecha[4]+fecha[0]+fecha[1]+fecha[2]+fecha[3]%>
+                                                                        <%= fecha %>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>tipo de Documento</td>
+                                                        <td>
+                                                                <%= mostrar.tipoDocumento %>
+                                                        </td>
+                                                        <td>Comentario:</td>
+                                                        <td>
+                                                                <%= mostrar.comentario %>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>Proveedor:</td>
+                                                        <td>
+                                                                <%=mostrar.proveedor_id+" - " +mostrar.razonSocial %>
+                                                        </td>
+                                                        <td>Fecha de Creacion</td>
+                                                        <td>
+                                                                <% fechaCrea=mostrar.created_at_F
+                                                                        fechaCrea=fechaCrea.slice(0,10).split("")
+                                                                        fechaCrea=fechaCrea[8]+fechaCrea[9]+fechaCrea[7]+fechaCrea[5]+fechaCrea[6]+fechaCrea[4]+fechaCrea[0]+fechaCrea[1]+fechaCrea[2]+fechaCrea[3]
+                                                                        %>
+                                                                        <%= fechaCrea %>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>Orden de Compra:</td>
+                                                        <td>
+                                                                <%= mostrar.ordenCompra_id %>
+                                                        </td>
+                                                        <td>Fecha Actualizacion</td>
+                                                        <td>
+                                                                <% let fechaActu=mostrar.updated_a_F
+                                                                        fechaActu=fechaActu.slice(0,10).split("")
+                                                                        fechaActu=fechaActu[8]+fechaActu[9]+fechaActu[7]+fechaActu[5]+fechaActu[6]+fechaActu[4]+fechaActu[0]+fechaActu[1]+fechaActu[2]+fechaActu[3]%>
+                                                                        <%= fechaActu %>
+                                                        </td>
+                                                </tr>
+                                        </table>
+
+                                </div>
+                                <br>
+                                <div class=" row col-m-8" style="text-align: center;">
+                                                                        <div class="col">
+                                                                                <button type="button"
+                                                                                        class="btn btn-warning"
+                                                                                        data-bs-toggle="modal"
+                                                                                        data-bs-target="#VentanaActu">Editar</button>
+                                                                        </div>
+                                                                        <div class="col">
+                                                                                <button class="btn btn-primary"
+                                                                                        data-bs-toggle="modal"
+                                                                                        data-bs-target="#Cancelar">Anular</button>
+                                                                        </div>
+                                                                        <div class="col">
+                                                                                <button type="button"
+                                                                                        class="btn btn-danger"
+                                                                                        data-bs-toggle="modal"
+                                                                                        data-bs-target="#VentanaConfim">Eliminar</button>
+                                                                        </div>
+
+                                </div>
+
+                        </div>
+                </div>
+
+                <!--confirmacion de eliminar-->
+                <div id="VentanaConfim" class="modal fade" tabindex="-1" aria-hidden="true"
+                        aria-labelledby="VentanaConfim">
+                        <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                        <div class="modal-header">
+                                                <lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop"
+                                                        delay="1000" colors="primary:#c71f16,secondary:#000000"
+                                                        state="hover-trash" style="width:50px;height:50px">
+                                                </lord-icon>
+                                                <h5>¿Desea eliminar este registro?</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Closes"></button>
+                                        </div>
+                                        <div class="modal-footer">
+                                                <div style="margin-right: 60%;">
+                                                        <a href="/router/Eliminar/<%= mostrar.id_F %>"
+                                                                class="btn btn-danger">Eliminar</a>
+                                                </div>
+
+                                                <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Cancelar</button>
+
+
+                                        </div>
+                                </div>
+                        </div>
+                </div>
+                <!--Actualizar datos-->
+                <div id="VentanaActu" class="modal fade" tabindex="-1" aria-hidden="true" aria-labelledby="VentanaActu">
+                        <div class="modal-dialog">
+                                <div class="modal-content">
+                                        <form action="/router/editar" method="post">
+                                                <fieldset>
+                                                <div class="modal-header">
+                                                        <table>
+                                                                <tr>
+                                                                        <td>
+                                                                                <h1 class="modal-title fs-5">
+                                                                                        Editar Factura </h1>
+                                                                        </td>
+                                                                        <td> <lord-icon src="https://cdn.lordicon.com/puvaffet.json"
+                                                                                        trigger="loop" delay="200"
+                                                                                        style="width:50px;height:50px">
+                                                                                </lord-icon>
+                                                                        </td>
+                                                                </tr>
+                                                        </table>
+
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                aria-label="Closes"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                        <table>
+                                                                <tr>
+                                                                        <td>
+                                                                                <span class="badge bg-secondary"
+                                                                                        style="font-size: medium;">id:</span>
+                                                                                <input type="text" id="idFactura"
+                                                                                        name="idFactura"
+                                                                                        style="background-color: rgba(238, 230, 230, 0.842);"
+                                                                                        value="<%= mostrar.id_F %>"
+                                                                                        readonly>
+
+                                                                        </td>
+                                                                        <td>
+                                                                                <span class="badge bg-secondary"
+                                                                                        style="font-size: medium;">Usuario:</span>
+                                                                                <input type="text" id="idUsuario"
+                                                                                        name="idUsuario"
+                                                                                        style="background-color: rgba(238, 230, 230, 0.842);"
+                                                                                        value="<%= mostrar.user_id_F %>"
+                                                                                        readonly>
+                                                                        </td>
+                                                                </tr>
+                                                                <tr>
+                                                                        <td>
+                                                                                <span class="badge bg-secondary"
+                                                                                        style="font-size: medium;">N°
+                                                                                        Factura:</span>
+                                                                                <input type="text" id="nFactura"
+                                                                                        name="nFactura"
+                                                                                        value="<%= mostrar.factura_id %>" required>
+                                                                        </td>
+                                                                        <td>
+                                                                                <span class="badge bg-secondary"
+                                                                                        style="font-size: medium;">IDDOC:</span>
+                                                                                <input type="text" id="iddoc"
+                                                                                        name="iddoc"
+                                                                                        value="<%= mostrar.iddoc %>" required>
+                                                                        </td>
+                                                                </tr>
+                                                                <tr>
+                                                                        <td>
+                                                                                <span class="badge bg-secondary"
+                                                                                        style="font-size: medium;">Total
+                                                                                        Factura:</span>
+                                                                                <input type="text" id="totalFactura"
+                                                                                        name="totalFactura"
+                                                                                        value="<%= mostrar.totalFactura %>"required>
+                                                                        </td>
+                                                                        <td>
+                                                                                <span class="badge bg-secondary"
+                                                                                        style="font-size: medium;">Tipo
+                                                                                        de
+                                                                                        Documento:</span>
+                                                                                <select name="tipoDocumento"
+                                                                                        id="tipoDocumento">
+                                                                                        <option
+                                                                                                value="<%= mostrar.tipoDocumento %>">
+                                                                                                <%=
+                                                                                                        mostrar.tipoDocumento%>
+                                                                                        </option>
+                                                                                        <option <% if(mostrar.tipoDocumento=='Factura'){%> hidden <%} %> value="Factura">Factura
+                                                                                        </option>
+                                                                                        <option <% if(mostrar.tipoDocumento=='Recibo'){%> hidden <%} %>value="Recibo">Recibo
+                                                                                        </option>
+                                                                                        <option <% if(mostrar.tipoDocumento=='Boleta'){%> hidden <%} %>value="Boleta">Boleta
+                                                                                        </option>
+                                                                                </select>
+                                                                        </td>
+                                                                </tr>
+                                                                <tr>
+                                                                        <td>
+                                                                                <span class="badge bg-secondary"
+                                                                                        style="font-size: medium;">Estado:</span>
+                                                                                <input type="text" id="estado"
+                                                                                        name="estado"
+                                                                                        style="background-color: rgba(238, 230, 230, 0.842);"
+                                                                                        value="<%= mostrar.estado_id %>"
+                                                                                        readonly>
+                                                                        </td>
+                                                                        <td>
+                                                                                <span class="badge bg-secondary"
+                                                                                        style="font-size: medium;">Orden
+                                                                                        de Compra</span>
+                                                                                <input type="text" id="OrdenCompra"
+                                                                                        name="OrdenCompra"
+                                                                                        value="<%= mostrar.ordenCompra_id %>" readonly>
+                                                                        </td>
+                                                                </tr>
+                                                                <tr>
+                                                                        <td>
+                                                                                <span class="badge bg-secondary"
+                                                                                        style="font-size: medium;">Proveedor</span>
+                                                                                <div style="width: 200px;">
+                                                                                        <select id="Proveedor"
+                                                                                                name="Proveedor"
+                                                                                                style="width: 100%">
+                                                                                                <option value="<%= mostrar.proveedor_id %>">
+                                                                                                        <%= mostrar.proveedor_id+ " - "+mostrar.razonSocial
+                                                                                                                %>
+                                                                                                </option>
+                                                                                                <% datoProv.forEach(element=>{%>
+                                                                                                        <option value="<%= element.proveedor_id %>">
+                                                                                                                <%= element.proveedor_id+" - "+element.razonSocial %>
+                                                                                                        </option>
+                                                                                                <% }); %>
+                                                                                       
+                                                                                        </select>
+                                                                                </div>
+                                                                        </td>
+                                                                        
+                                                                        <td>
+                                                                                
+                                                                                <span class=" badge bg-secondary"style="font-size: medium;">
+                                                                                                                        Fecha
+                                                                                                                        de
+                                                                                                                        Recepcion</span>
+                                                                                                                        <input type="text"
+                                                                                                                                id="FechaRecepcion"
+                                                                                                                                name="FechaRecepcion"
+                                                                                                                                style="background-color: rgba(238, 230, 230, 0.842);"
+                                                                                                                                value="<%= fecha %>"
+                                                                                                                                readonly>
+                                                                        </td>
+                                                                </tr>
+                                                                <tr>
+                                                                        <td>
+                                                                                <span class="badge bg-secondary"
+                                                                                        style="font-size: medium;">Comentario:</span>
+                                                                                <input type="text" id="comentario"
+                                                                                        name="comentario"
+                                                                                        value="<%= mostrar.comentario %>">
+                                                                                <input type="text" id="comentario2"
+                                                                                        name="comentario2"
+                                                                                        value="<%= mostrar.comentario %>" hidden>
+                                                                        </td>
+                                                                        <td>
+                                                                                <span class="badge bg-secondary"
+                                                                                        style="font-size: medium;">OBS
+                                                                                        Anulacion:</span>
+                                                                                <input type="text" id="obsAnulacion"
+                                                                                        name="obsAnulacion"
+                                                                                        value="<%= mostrar.obsAnulacion %>" <% if (mostrar.estado_id == 4) { %> readonly <% } %> >
+                                                                        </td>
+                                                                </tr>
+
+                                                        </table>
+
+
+                                                </div>
+                                                <div class="modal-footer">
+                                                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                                                <button type="submit" class="btn btn-secondary"
+                                                                        data-bs-dismiss="modal">Cancelar</button>
+                                                                <button type="submit"
+                                                                        class="btn btn-warning">Actualizar</button>
+                                                        </div>
+
+                                                </div>
+                                                </fieldset>
+                                        </form>
+                                </div>
+                        </div>
+                </div>
+
+                <!--Cancelar factura-->
+                <div class="modal fade" id="Cancelar" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                                <div class="modal-content">
+                                        <form action="/router/anular" method="post">
+                                        <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Anular Factura</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                                <div class="content" style="text-align: center;"> 
+                                                        <input type="text" name="idFactura" id="idFactura" value="<%= mostrar.id_F %>" readonly hidden>
+                                                        <textarea name="obsAnulacion" id="obsAnulacion" class="form-control" aria-label="With textarea" required></textarea> 
+                                                </div>
+                                                
+
+                                        </div>
+                                        <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Cancelar</button>
+                                                
+                                                <button type="submit" class="btn btn-warning">Confirmar</button>
+                                        </div>
+                                        </form>
+                                </div>
+                        </div>
+                </div>
+
+                <script>
+                        $(document).ready(function () {
+                                $('#Proveedor').select2({
+                                        dropdownParent: $('#VentanaActu')
+                                });
+                        });
+                </script>

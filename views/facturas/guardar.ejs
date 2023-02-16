@@ -1,0 +1,210 @@
+<style>
+    .header {
+        color: #3fdb10;
+        font-size: 27px;
+        padding: 10px;
+    }
+
+    .bigicon {
+        font-size: 35px;
+        color: hsl(60, 100%, 50%);
+    }
+</style>
+
+    <!--select2-->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script src="https://cdn.lordicon.com/ritcuqlt.js"></script>
+    <br>
+    <div class="container">
+        <div class="row ">
+            <div class="col-md-12">
+                <div class="Well well-sm">
+                    <form class="form-horizontal needs-validation" action="/router/guardarFactura" method="post"
+                        style="margin: auto; max-width: 500px;" novalidate>
+                        <!--\/ organiza elemento  dentro del form-->
+                        <fieldset>
+                            <div>
+                                <legend class="text-center header row align-items-start " style="margin-left: 30%;">
+                                    Facturas 
+                                    <lord-icon src="https://cdn.lordicon.com/ckatldkn.json" trigger="loop"
+                                        delay="200" style="width:50px;height:50px">
+                                    </lord-icon>
+                                </legend>
+                            </div>
+                            
+                            <div class="form-group" style="margin: 5px;">
+                                <!--N factura-->
+                                <div class="col-m-8">
+
+                                    <input id="nFactura" name="nFactura" type="number" placeholder="N° Factura"
+                                        class="form-control" required <% if (value.idFactura!="" ){%>
+                                    style="border: dashed #fb5656;"
+                                    value="<%= galleta.idFactura %>"
+                                        <% } else{if(value.estado!=0){%>
+                                            value="<%= galleta.idFactura %>"
+                                                <% }} %> >
+                                </div>
+                            </div>
+                            <div class="form-group" style="margin: 5px;">
+                                <!--IDDOC-->
+                                <div class="col-m-8">
+                                    <input id="IDDOC_h" name="IDDOC_h" type="text" placeholder="IDDOC"
+                                        class="form-control" required <% if (value.iddoc!="" ) {%>
+                                    style="border: dashed #fb5656;"
+                                    value="<%= galleta.iddoc %>"
+                                        <%} else{if(value.estado!=0){%>
+                                            value="<%= galleta.iddoc %>"
+                                                <% }} %>>
+                                </div>
+                                <div class="form-group" style="margin: 5px;">
+                                    <!--documento-->
+                                    <div class="col-m-8">
+                                        <select name="Documento" id="Documento" class="form-control">
+                                            <% if (value.estado!=0) {%>
+                                                <option value="<%= galleta.tipoDocumento %>"><%= galleta.tipoDocumento %> </option>
+                                            <%} %> 
+                                            <option <% if(galleta.tipoDocumento=='Factura'){%> hidden <%} %> value="Factura">Factura</option>
+                                            <option <% if(galleta.tipoDocumento=='Recibo'){%> hidden <%} %> value="Recibo">Recibo</option>
+                                            <option <% if(galleta.tipoDocumento=='Boleta'){%> hidden <%} %>  value="Boleta">Boleta</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group " style="margin: 5px;">
+                                    <!--proveedor-->
+                                    <div class="col-m-8">
+                                        <select id="Proveedor" name="Proveedor" class="form-select form-control"
+                                            required>
+                                            <% if (value.estado!=0) { %>
+                                               <option value="<%= prov.id %>"><%= prov.id+" - "+prov.razonSocial %> </option>
+                                            <% } %>
+                                            
+                                            <% proveedores.forEach(element=> { %>
+                                                <option value="<%= element.id %>">
+                                                    <%= element.id+" - "+element.razonSocial %>
+                                            </option>
+                                            <% }); %>
+                                        </select>
+                                </div>
+                            </div>
+                            <div class=" form-group" style="margin: 5px;">
+                                                        <!--orden de compra-->
+                                                        <div class="col-m-8">
+                                                            <input id="OrdenCompra" name="OrdenCompra" type="text"
+                                                                placeholder="Orden de Compra"
+                                                                onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;"
+                                                                class="form-control" required <% if(value.OrdenCompra!="" ) {%>
+                                                            style="border: dashed #fb5656;"
+                                                            value="<%= galleta.OrdenCompra %>"
+                                                                <%} else{if(value.estado!=0){%>
+                                                                    value="<%= galleta.OrdenCompra %>"
+                                                                        <% }} %>>
+                                                        </div>
+                                    </div>
+                                    <div class="form-group" style="margin: 5px;">
+                                        <!--total factura-->
+                                        <div class="col-m-8 ml-md-auto">
+                                            <input id="TotalFactura" name="TotalFactura" type="text"
+                                                placeholder="Total Factura"
+                                                onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;"
+                                                class="form-control" required <% if (value.totalFactura!="" ) {%>
+                                            style="border: dashed #fb5656;"
+                                            value="<%= galleta.totalFactura %>"
+                                                <% }else{if(value.estado!=0){%>
+                                                    value="<%= galleta.totalFactura %>"
+                                                        <% }} %>>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group" style="margin: 5px;">
+                                        <!--fecha recepcion-->
+                                        <div class="col-m-8">
+                                            <%= //fechaMax %>
+                                            <%= //galleta.FechaRecepcion %>
+                                                <input id="FechaRecepcion" name="FechaRecepcion" type="date"
+                                                    class="form-control" required max="<%= fechaMax %>"
+                                                    <% if(value.estado!=0){ %>
+                                                        value="<%= galleta.FechaRecepcion %>"
+                                                       <% }else{%>
+                                                        value="<%= fechaMax %>"
+                                                       <% } %> >
+                                        </div>
+                                    </div>
+                                    <div class="form-group" style="margin: 5px;">
+                                        <!--comentario-->
+                                        <div class="col-m-8">
+                                            <input id="Comentario" name="Comentario" type="text"
+                                                placeholder="Comentario" class="form-control" <% if(value.estado!=0){%>value="<%= galleta.Comentario %> "<%} %> >
+                                        </div>
+                                    </div>
+                                    <div class="form-group" style="margin-left: 75%; margin-top: 20px;">
+                                        <div class="col-m-8">
+                                            <button type="submit" id="btnGuardar" name="btnGuardar" 
+                                                class="form control btn btn-lg btn-warning">Guardar
+                                            </button>
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group" style="margin: 5px;">
+                                        <div class="col-m-8">
+                                            <% if( value.estado==1){ %>
+                                                <td>
+                                                    Datos erroneos: <br>
+                                                    <ul type="">
+                                                        <% if ( value.idFactura!="" ) {%>
+                                                            <li>
+                                                                <%= value.idFactura %>
+                                                            </li>
+                                                            <%} %>
+                                                                <% if (value.iddoc!="" ) {%>
+                                                                    <li>
+                                                                        <%= value.iddoc %>
+                                                                    </li>
+                                                                    <%} %>
+                                                                        <% if (value.OrdenCompra!="" ) {%>
+                                                                            <li>
+                                                                                <%= value.OrdenCompra %>
+                                                                            </li>
+                                                                            <%} %>
+                                                                                <% if (value.totalFactura!="" ) {%>
+                                                                                    <li>
+                                                                                        <%= value.totalFactura %>
+                                                                                    </li>
+                                                                                    <%} %>
+                                                    </ul>
+                                                </td>
+                                                <% } %>
+                                        </div>
+                                    </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/router/router.js"></script>
+
+    <!--//funcion para el buscador-->
+    <script>
+        $(document).ready(function () {
+            $('#Proveedor').select2();
+        });
+    </script>
+
+    <!--//Valida los campos vacios-->
+    <script>
+        const forms = document.querySelectorAll('.needs-validation')
+
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+
+                }
+                form.classList.add('was-validated')
+            }, false)
+        })
+    </script>

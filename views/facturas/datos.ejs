@@ -1,0 +1,140 @@
+           <!--datatables-->
+            <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
+        
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+        
+    <div class="row align-items-start text-center">
+        <div class="col ">
+            <h1>
+                Registro de Facturas
+            </h1>
+        </div>
+    </div>
+    <div class="form-control text-wrap" >
+        <table class="table dg-opacity-25 table-striped table-hover" id="tabla1" 
+            style="font-size: 0.8em; border: rgb(17, 140, 5);">
+            <thead>
+                <td>id</td>
+                <td>N° Factura</td>
+                <td>Usuario</td>
+                <td>IDDOC</td>
+                <td>Documento</td>
+                <td>Provedor</td>
+                <td>Orden de Compra</td>
+                <td>Total Factura</td>
+                <td>Estado</td>
+                <td>Obs Anulacion</td>
+                <td>Fecha Recepcion</td>
+                <td>comentario</td>
+                <td>Fecha Creacion</td>
+                <td>Fecha actualicacion</td>
+                <td style="text-align: center;">Cambios
+                </td>
+            </thead>
+            <tbody>
+
+                <% mostrar.forEach(element=> { %>
+                    <tr >
+                        <td>
+                            <%= element.id_F %>
+                        </td>
+                        <td>
+                            <%= element.factura_id %>
+                        </td>
+                        <td>
+                            <%= element.user_id_F %>
+                        </td>
+                        <td>
+                            <%= element.iddoc %>
+                        </td>
+                        <td>
+                            <%= element.tipoDocumento %>
+                        </td>
+                        <td >
+                            <%= element.razonSocial %>
+                        </td>
+                        <td>
+                            <%= element.ordenCompra_id %>
+                        </td>
+                        <td>
+                            <%= element.totalFactura %>
+                        </td>
+                        <td>
+                            <%= element.estado_id %>
+                        </td>
+                        <td>
+                            <%= element.obsAnulacion %>
+                        </td>
+                        <% let fecha=element.fechaOficinaParte 
+                            fecha=fecha.slice(0,10).split("")
+                            fecha=fecha[8]+fecha[9]+fecha[7]+fecha[5]+fecha[6]+fecha[4]+fecha[0]+fecha[1]+fecha[2]+fecha[3]
+                            %>
+                            <td>
+                                <%= fecha %>
+                            </td>
+                            <td>
+                                <%= element.comentario %>
+                            </td>
+
+                            <td>
+                                <% fechaCrea=element.created_at_F 
+                                fechaCrea=fechaCrea.slice(0,10).split("")
+                                fechaCrea=fechaCrea[8]+fechaCrea[9]+fechaCrea[7]+fechaCrea[5]+fechaCrea[6]+fechaCrea[4]+fechaCrea[0]+fechaCrea[1]+fechaCrea[2]+fechaCrea[3]
+                                    %>
+                                    <%= fechaCrea %>
+                            </td>
+                            <td>
+                                <% let fechaActu=element.updated_a_F 
+                                fechaActu=fechaActu.slice(0,10).split("")
+                                fechaActu=fechaActu[8]+fechaActu[9]+fechaActu[7]+fechaActu[5]+fechaActu[6]+fechaActu[4]+fechaActu[0]+fechaActu[1]+fechaActu[2]+fechaActu[3]
+                                    %>
+                                    <%= fechaActu %>
+                            </td>
+                            <td>
+                                <a href="/router/editar/<%= element.id_F %>" class="btn btn-primary"><i class="bi bi-back"></i></a>
+                            </td>
+                            
+                    </tr>
+                    <% }) %>
+
+
+            </tbody>
+        </table>
+    </div>
+
+
+    <!-- DATATABLES -->
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
+
+    <!--da el formato y cambia el idioma-->
+    <script>
+        $(document).ready(function () {
+            $('#tabla1').DataTable({
+                language: {
+                    processing: "Tratamiento en curso...",
+                    search: "Buscar&nbsp;:",
+                    lengthMenu: "Agrupar de _MENU_ items",
+                    info: "Mostrando del item _START_ al _END_ de un total de _TOTAL_ items",
+                    infoEmpty: "No existen datos.",
+                    infoFiltered: "(filtrado de _MAX_ elementos en total)",
+                    infoPostFix: "",
+                    loadingRecords: "Cargando...",
+                    zeroRecords: "No se encontraron datos con tu busqueda",
+                    emptyTable: "No hay datos disponibles en la tabla.",
+                    paginate: {
+                        first: "Primero",
+                        previous: "Anterior",
+                        next: "Siguiente",
+                        last: "Ultimo"
+                    },
+                    aria: {
+                        sortAscending: ": active para ordenar la columna en orden ascendente",
+                        sortDescending: ": active para ordenar la columna en orden descendente"
+                    }
+                },
+
+                lengthMenu: [[5,10,15, 20,25, 30, -1], [5,10,15, 20,25, 30,"Todos"]],
+            })
+        })    
+    </script>
+

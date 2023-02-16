@@ -1,0 +1,271 @@
+<script src="https://cdn.lordicon.com/ritcuqlt.js"></script>
+
+<div class="container">
+          <div class="row" style="margin: auto; max-width: 700px;">
+                    <div class="col-md-12">
+                              <div class="col-m-8" style="text-align:center;">
+                                        <table style="margin: 0px auto; border: hidden;">
+                                                  <tr>
+                                                            <td style="border: hidden;">
+                                                                      <legend class="text-center header row align-items-start "
+                                                                                style="font-size: xx-large;">
+                                                                                Proveedor
+                                                                      </legend>
+                                                            </td>
+                                                            <td> <lord-icon src="https://cdn.lordicon.com/ckatldkn.json"
+                                                                                trigger="loop" delay="200"
+                                                                                style="width:50px;height:50px">
+                                                                      </lord-icon>
+                                                            </td>
+                                                  </tr>
+                                        </table>
+
+                                        <p class="h5">Registro</p>
+                              </div>
+                              <br>
+                              <div class="row col-m-8">
+                                        <table class="table table-striped-columns">
+                                                  <tr>
+                                                            <td>ID:</td>
+                                                            <td>
+                                                                      <%= dato.id %>
+                                                            </td>
+                                                            <td>RUT:</td>
+                                                            <td>
+                                                                      <%= dato.rut %>
+                                                            </td>
+                                                  </tr>
+                                                  <tr>
+                                                            <td> RazonSocial:</td>
+                                                            <td>
+                                                                      <%= dato.razonSocial %>
+                                                            </td>
+                                                            <td>Alias:</td>
+                                                            <td>
+                                                                      <%= dato.alias %>
+                                                            </td>
+                                                  </tr>
+                                                  <tr>
+                                                            <td>Giro:</td>
+                                                            <td>
+                                                                      <%= dato.giro %>
+                                                            </td>
+                                                            <td>Direccion:</td>
+                                                            <td>
+                                                                      <%= dato.direccion %>
+                                                            </td>
+                                                  </tr>
+                                                  <tr>
+                                                            <td>Ciudad:</td>
+                                                            <td>
+                                                                      <%= dato.ciudad %>
+                                                            </td>
+                                                            <td>telefono</td>
+                                                            <td>
+                                                                      <%= dato.telefono %>
+                                                            </td>
+                                                  </tr>
+                                                  <tr>
+                                                            <td>Correo:</td>
+                                                            <td>
+                                                                      <%= dato.correo %>
+                                                            </td>
+                                                            <td>Usuario:</td>
+                                                            <td>
+                                                                      <%= dato.user_id %>
+                                                            </td>
+                                                  </tr>
+                                                  <tr>
+                                                            <td>Fecha de ingreso:</td>
+                                                            <td>
+                                                                      <% fechaCrea=dato.created_at
+                                                                                fechaCrea=fechaCrea.slice(0,10).split("")
+                                                                                fechaCrea=fechaCrea[8]+fechaCrea[9]+fechaCrea[7]+fechaCrea[5]+fechaCrea[6]+fechaCrea[4]+fechaCrea[0]+fechaCrea[1]+fechaCrea[2]+fechaCrea[3]%>
+                                                                                <%= fechaCrea %>
+                                                            </td>
+                                                            <td>Fecha de modificacion:</td>
+                                                            <td>
+                                                                      <% let fechaActu=dato.updated_at
+                                                                                fechaActu=fechaActu.slice(0,10).split("")
+                                                                                fechaActu=fechaActu[8]+fechaActu[9]+fechaActu[7]+fechaActu[5]+fechaActu[6]+fechaActu[4]+fechaActu[0]+fechaActu[1]+fechaActu[2]+fechaActu[3]%>
+                                                                                <%= fechaActu %>
+                                                            </td>
+                                                  </tr>
+                                        </table>
+                              </div>
+                              <br>
+                              <div class=" row col-m-8" style="text-align: center;">
+                                        <div class="col">
+                                                  <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                                                            data-bs-target="#VentanaActu">Editar</button>
+                                        </div>
+                                        
+                                        <div class="col">
+                                                  <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                                            data-bs-target="#VentanaConfim">Eliminar</button>
+                                        </div>
+
+                              </div>
+                    </div>
+          </div>
+</div>
+
+
+<div id="VentanaActu" class="modal fade" tabindex="-1" aria-hidden="true" aria-labelledby="VentanaActu">
+          <div class="modal-dialog">
+                    <div class="modal-content">
+                              <form action="/proveedor/editar" method="post">
+                                        <div class="modal-header">
+                                                  <table>
+                                                            <tr>
+                                                                      <td>
+                                                                                <h1 class="modal-title fs-5">
+                                                                                          Editar Proveedor </h1>
+                                                                      </td>
+                                                                      <td> <lord-icon src="https://cdn.lordicon.com/puvaffet.json"
+                                                                                          trigger="loop" delay="200"
+                                                                                          style="width:50px;height:50px">
+                                                                                </lord-icon>
+                                                                      </td>
+                                                            </tr>
+                                                  </table>
+
+                                                  <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Closes"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                                  <div class="container">
+
+                                                  </div>
+                                                  <table>
+                                                            <tr>
+                                                                      <td>
+                                                                                <span class="badge bg-secondary"
+                                                                                          style="font-size: medium;">ID:</span><br>
+                                                                                <input type="text" id="id" name="id"
+                                                                                          style="background-color: rgba(238, 230, 230, 0.842);"
+                                                                                          value="<%= dato.id %>"
+                                                                                          readonly>
+                                                                      </td>
+
+                                                                      <td>
+                                                                                <span class="badge bg-secondary"
+                                                                                          style="font-size: medium;">RUT:</span>
+                                                                                <input type="text" id="rut" name="rut"
+                                                                                          style="background-color: rgba(238, 230, 230, 0.842);"
+                                                                                          value="<%= dato.rut %>" readonly>
+                                                                      </td>
+
+                                                            </tr>
+                                                            <tr>
+                                                                      <td>
+                                                                                <span class="badge bg-secondary"
+                                                                                          style="font-size: medium;">Razon
+                                                                                          Social:</span>
+                                                                                <input type="text" id="razonSocial" name="razonSocial"
+                                                                                          value="<%= dato.razonSocial %>" required>
+                                                                      </td>
+                                                                      <td>
+                                                                                <span class="badge bg-secondary"
+                                                                                          style="font-size: medium;">Alias:</span>
+                                                                                <input type="text" id="alias" name="alias"
+                                                                                          value="<%= dato.alias %>" required>
+                                                                      </td>
+                                                            </tr>
+                                                            <tr>
+                                                                      <td>
+                                                                                <span class="badge bg-secondary"
+                                                                                          style="font-size: medium;">Giro:</span>
+                                                                                <input type="text" id="giro" name="giro"
+                                                                                          value="<%= dato.giro %>" required>
+                                                                      </td>
+                                                                      <td>
+                                                                                <span class="badge bg-secondary"
+                                                                                          style="font-size: medium;">Direccion:</span>
+                                                                                <input type="text" id="direccion" name="direccion"
+                                                                                          value="<%= dato.direccion %>">
+                                                                      </td>
+                                                            </tr>
+                                                            <tr>
+                                                                      <td>
+                                                                                <span class="badge bg-secondary"
+                                                                                          style="font-size: medium;">Ciudad:</span>
+                                                                                <input type="text" id="ciudad" name="ciudad"
+                                                                                          value="<%= dato.ciudad %>">
+                                                                      </td>
+                                                                      <td>
+                                                                                <span class="badge bg-secondary"
+                                                                                          style="font-size: medium;">Telefono:</span>
+                                                                                <input type="number" id="fono" name="fono" max="9"
+                                                                                <% if (dato.telefono !="N/A") { %>
+                                                                                          value="<%= dato.telefono %>"
+                                                                                <% }else{%>
+                                                                                          placeholder="<%= dato.telefono %>"
+                                                                                <%} %>>
+                                                                      </td>
+                                                            </tr>
+                                                            <tr>
+                                                                      <td>
+                                                                                <span class="badge bg-secondary"
+                                                                                          style="font-size: medium;">Correo:</span>
+                                                                                <input type="email" id="correo" name="correo"
+                                                                                <% if (dato.correo!="N/A") { %>
+                                                                                          value="<%= dato.correo %>"
+                                                                                <% }else{%>
+                                                                                          placeholder="<%= dato.correo %>"
+                                                                                <% } %>> 
+                                                                      </td>
+                                                                      <td>
+                                                                                <span class="badge bg-secondary"
+                                                                                          style="font-size: medium;">Usuario:</span>
+                                                                                <input type="text" id="usuario" name="usuario"
+                                                                                          style="background-color: rgba(238, 230, 230, 0.842);"
+                                                                                          value="<%= dato.user_id %>"
+                                                                                          readonly>
+                                                                      </td>
+                                                            </tr>
+                                                  </table>
+                                        </div>
+                                        <div class="modal-footer">
+                                                  <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                                            <button type="submit" class="btn btn-secondary"
+                                                                      data-bs-dismiss="modal">Cancelar</button>
+                                                            <button type="submit"
+                                                                      class="btn btn-warning">Actualizar</button>
+                                                  </div>
+
+                                        </div>
+                              </form>
+                    </div>
+          </div>
+</div>
+
+<div id="VentanaConfim" class="modal fade" tabindex="-1" aria-hidden="true"
+aria-labelledby="VentanaConfim">
+<div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+                <div class="modal-header">
+                        <lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop"
+                                delay="1000" colors="primary:#c71f16,secondary:#000000"
+                                state="hover-trash" style="width:50px;height:50px">
+                        </lord-icon>
+                        <h5>¿Desea eliminar este registro?</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Closes"></button>
+                </div>
+                <div class="modal-body" <% if (ids == 0) { %>hidden<% } %>>
+                    <span class="fs-3" style="color: rgb(72, 33, 33);">EL proveedor cuenta con <%= ids %> facturas asociadas,imposible eliminar </span>      
+                </div>
+                <div class="modal-footer">
+                        <div style="margin-right: 60%;">
+                              <a href="/proveedor/Eliminar/<%= dato.id %>"
+                                        class="btn btn-danger <% if(ids > 0){%> disabled <%}%>">Eliminar</a>
+                        </div>
+
+                        <button type="button" class="btn btn-secondary"
+                                data-bs-dismiss="modal">Cancelar</button>
+
+
+                </div>
+        </div>
+</div>
