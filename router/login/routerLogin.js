@@ -20,18 +20,20 @@ router.get('/login', (req, res) => {
 
 router.post('/login', async(req, res) => {
 
-          let login = {
-                    correo: req.body.correo,
-                    contra:req.body.contra
-          }
+      
+          const correo=req.body.correo.replace(/['"]+/g,'')
+          const contra=req.body.contra.replace(/['"]+/g,'')
+          
+          console.log(contra)
+          console.log(correo)
           if(req.body.correo!=""){
                     if (/^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/.test(req.body.correo)){
-                              conection.query(`SELECT id,correo,contrasenia FROM usuarios WHERE correo="${login.correo}"`,(err,result)=>{
+                              conection.query(`SELECT id,correo,contrasenia FROM usuarios WHERE correo="${correo}"`,async (err,result)=>{
                                         const user = Object.values(JSON.parse(JSON.stringify(result)));
                                         console.log(user)
 
                                         if (user!="") {
-                                                  if (bcrypt.compare(login.contra,user[0].contrasenia)){
+                                                  if (await bcrypt.compare(contra,user[0].contrasenia)){
                                                             console.log("contraseña correcta")
                                                             req.session.usuario=user[0].id
                                                             console.log(req.session.usuario)
