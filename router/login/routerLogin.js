@@ -6,66 +6,92 @@ const session = require('express-session');
 const { Cookie } = require('express-session');
 const bcrypt = require('bcrypt');
 
-    
+
 
 const conection = require('../../database/database.js');
+const { destroy } = require('../../database/database.js');
 
 
 router.get('/login', (req, res) => {
           req.session.usuario = null
+
+          let alerta = {
+                    estado: 0,
+                    correo: "",
+                    contra: ""
+          }
+          if (req.session.alerta!=null) {
+                    alerta=req.session.alerta
+                    console.log(alerta)
+                    req.session.alerta=destroy
+          }else{
+                    console.log("no cokie\n" + alerta)
+          }
           res.render('./login/login', {
+                    alerta:alerta,
                     layout: false
           })
 })
 
-router.post('/login', async(req, res) => {
+router.post('/login', async (req, res) => {
 
-      
-          const correo=req.body.correo.replace(/['"]+/g,'')
-          const contra=req.body.contra.replace(/['"]+/g,'')
-          
-          console.log(contra)
-          console.log(correo)
-          if(req.body.correo!=""){
-                    if (/^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/.test(req.body.correo)){
-                              conection.query(`SELECT id,correo,contrasenia FROM usuarios WHERE correo="${correo}"`,async (err,result)=>{
+
+          const correo = req.body.correo.replace(/['"]+/g, '')
+          const contra = req.body.contra.replace(/['"]+/g, '')
+
+          req.session.alerta = {
+                    estado: 0,
+                    correo: "",
+                    contra: ""
+          }
+          //console.log(contra)
+          //console.log(correo)
+          if (req.body.correo != "") {
+                    if (/^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/.test(req.body.correo)) {
+                              conection.query(`SELECT id,correo,contrasenia FROM usuarios WHERE correo="${correo}"`, async (err, result) => {
                                         const user = Object.values(JSON.parse(JSON.stringify(result)));
-                                        console.log(user)
+                                        
 
-                                        if (user!="") {
-                                                  if (await bcrypt.compare(contra,user[0].contrasenia)){
-                                                            console.log("contraseña correcta")
-                                                            req.session.usuario=user[0].id
+                                        if (user != "") {
+                                                  if (await bcrypt.compare(contra,user[0].contrasenia)) {
+                                                            //console.log("contraseña correcta")
+                                                            req.session.usuario = user[0].id
+                                                            //console.log(user[0].contrasenia)
                                                             console.log(req.session.usuario)
                                                             res.redirect('/router/guardarFactura')
-                                                  }else{
+                                                  } else {
+                                                            req.session.alerta.estado = 1,
+                                                            req.session.alerta.contra = "Contraseña incorrecta",
                                                             console.log("contraseña incorrecta")
-                                                            res.redirect('back') 
+                                                            res.redirect('back')
                                                   }
                                                   //console.log(user[0].contraseña)
                                                   //res.redirect('back')   
-                                        }else{
-                                                  console.log("sin registro")
+                                        } else {
+                                                 
+                                                  req.session.alerta.estado = 1
+                                                  req.session.alerta.correo = "Correo incorrecto o no ingresado"
+                                                  //console.log("sin registro")
                                                   res.redirect('back')
                                         }
-                                        
+
                               })
-                    }else{
+                    } else {
                               res.redirect('back')
-                    } 
+                    }
           }
 
-         /*
-          let pass2='$2b$08$sOnhXT41qZ5Qk7Y/HX/IHuuuocSWLzOxG7aEPD6Dlf7Gqbsujb.9u';       
-          if(await bcrypt.compare(login.contra,pass2)){
-                    console.log("iguales")
-          }else{
-                    console.log("no son iguales")
-          }
-          //console.log(login)
-          //console.log(pass)
-          */
-          
+          /*
+           let pass2='$2b$08$sOnhXT41qZ5Qk7Y/HX/IHuuuocSWLzOxG7aEPD6Dlf7Gqbsujb.9u';       
+           if(await bcrypt.compare(login.contra,pass2)){
+                     console.log("iguales")
+           }else{
+                     console.log("no son iguales")
+           }
+           //console.log(login)
+           //console.log(pass)
+           */
+
 })
 /*
 if (req.body.correo != "") {
