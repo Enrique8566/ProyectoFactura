@@ -59,7 +59,7 @@ router.post('/login', async (req, res) => {
                                                             //console.log("contraseña correcta")
                                                             req.session.usuario = user[0].id
                                                             //console.log(user[0].contrasenia)
-                                                            console.log(req.session.usuario)
+                                                            //console.log(req.session.usuario)
                                                             res.redirect('/router/guardarFactura')
                                                   } else {
                                                             req.session.alerta.estado = 1,

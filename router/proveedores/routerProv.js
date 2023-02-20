@@ -53,7 +53,7 @@ router.get('/nuevoProveedor', (req, res) => {
                     }
                     req.session.datosC = null
                     //console.log(datos)
-                   
+                    let hola = "hola"
 
                     
 
