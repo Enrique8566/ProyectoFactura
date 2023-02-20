@@ -40,8 +40,15 @@
                                                                                 class="form-label">Correo</label>
                                                                       <input type="email" class="form-control"
                                                                                 id="correo" name="correo"
-                                                                                aria-describedby="emailHelp"required>
-                                                                                <% if (alerta.estado!=0) { %>
+                                                                                aria-describedby="emailHelp"required
+                                                                                <% if (alerta.correo!="") { %>
+                                                                                    style="border: dashed #fb5656;"
+                                                                                    value="<%= alerta.correoU %>"
+                                                                                <% } %>
+                                                                                <% if (alerta.contra!="") { %>
+                                                                                    value="<%= alerta.correoU %>"
+                                                                                <% } %>>
+                                                                                <% if (alerta.correo!="") { %>
                                                                                  <label for=""><%= alerta.correo %></label>
                                                                                 <% } %>
                                                             </div>
@@ -49,7 +56,13 @@
                                                                       <label for="exampleInputPassword1"
                                                                                 class="form-label">Contraseña</label>
                                                                       <input type="password" class="form-control"
-                                                                                id="contra" name="contra" required>
+                                                                                id="contra" name="contra" required
+                                                                                <% if (alerta.contra!="") { %>
+                                                                                    style="border: dashed #fb5656;"
+                                                                                <% } %>>
+                                                                                <% if (alerta.contra!="") { %>
+                                                                                    <label for=""><%= alerta.contra %></label>
+                                                                                   <% } %>
                                                             </div>
                                                             <button type="submit" class="btn btn-primary">Submit</button>
                                                   </form>

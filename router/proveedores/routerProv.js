@@ -8,26 +8,26 @@ const { Cookie } = require('express-session');
 const conection = require('../../database/database.js');
 
 router.get('/datos', (req, res) => {
-          if (req.session.usuario!=null) {
+          if (req.session.usuario != null) {
                     conection.query(`SELECT * FROM proveedores`, (err, result) => {
                               const mostrar = Object.values(JSON.parse(JSON.stringify(result)));
-          
+
                               //console.log(mostrar)
                               res.render('./Proveedores/datosProv', {
                                         mostrar: mostrar
                               })
-                    })    
-          }else{
+                    })
+          } else {
                     console.log('no ingresado')
                     res.redirect('/login/login?')
           }
-          
+
 
 })
 
 router.get('/nuevoProveedor', (req, res) => {
 
-          if (req.session.usuario!=null) {
+          if (req.session.usuario != null) {
                     let datos = {
                               estado: 0,
                               rut: "",
@@ -53,15 +53,15 @@ router.get('/nuevoProveedor', (req, res) => {
                     }
                     req.session.datosC = null
                     //console.log(datos)
-                    let hola = "hola"
-          
-                    console.log(req.session.prueba)
-          
+                   
+
+                    
+
                     res.render('./Proveedores/nuevoPorveedor', {
                               datos: datos,
                               hola: hola
-                    })  
-          }else{
+                    })
+          } else {
                     console.log('no ingresado')
                     res.redirect('/login/login?')
           }
@@ -186,7 +186,7 @@ router.post('/nuevoProveedor', (req, res) => {
 
 
 router.get('/editar/:id', (req, res) => {
-          if (req.session.usuario!=null) {
+          if (req.session.usuario != null) {
                     let id = req.params.id
                     conection.query(`SELECT id FROM facturas WHERE proveedor_id="${id}"`, (err, result) => {
                               const consulta = Object.values(JSON.parse(JSON.stringify(result)));
@@ -201,31 +201,43 @@ router.get('/editar/:id', (req, res) => {
                                                   ids: ids
                                         })
                               })
-                    })  
-          }else{
+                    })
+          } else {
                     console.log('no ingresado')
                     res.redirect('/login/login?')
           }
-         
+
 
 })
 
 router.get('/eliminar/:id', (req, res) => {
           let id = req.params.id
-          
-          console.log(id)
-          conection.query(`DELETE FROM proveedores WHERE id="${id}"`,
-                    (err, resultado) => {
-                              if (err) {
-                                        console.log(err),
-                                                  res.redirect('back')
-                                        return;
-                              } else (
-                                        console.log('datos borrados'),
-                                        console.log("provvedor sin facturas adjuntas"),
-                                        res.redirect('/proveedor/datos')
-                              )
-                    })
+
+          //console.log(id)
+          conection.query(`SELECT id FROM facturas WHERE proveedor_id="${id}"`, (err, result) => {
+                    const consulta = Object.values(JSON.parse(JSON.stringify(result)));
+                    const ids = consulta.length;
+                    //console.log(ids)
+                    if (ids==0) {
+                              conection.query(`DELETE FROM proveedores WHERE id="${id}"`,
+                              (err, resultado) => {
+                                        if (err) {
+                                                  console.log(err),
+                                                            res.redirect('back')
+                                                  return;
+                                        } else (
+                                                  console.log('datos borrados'),
+                                                  console.log("provvedor sin facturas adjuntas"),
+                                                  res.redirect('/proveedor/datos')
+                                        )
+                              })   
+                    }else{
+                              res.redirect('back')
+                    }
+                              
+                   
+          })
+         
 })
 
 router.post('/editar', (req, res) => {

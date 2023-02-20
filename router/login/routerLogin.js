@@ -18,6 +18,7 @@ router.get('/login', (req, res) => {
           let alerta = {
                     estado: 0,
                     correo: "",
+                    correoU:"",
                     contra: ""
           }
           if (req.session.alerta!=null) {
@@ -42,6 +43,7 @@ router.post('/login', async (req, res) => {
           req.session.alerta = {
                     estado: 0,
                     correo: "",
+                    correoU:"",
                     contra: ""
           }
           //console.log(contra)
@@ -62,6 +64,7 @@ router.post('/login', async (req, res) => {
                                                   } else {
                                                             req.session.alerta.estado = 1,
                                                             req.session.alerta.contra = "Contraseña incorrecta",
+                                                            req.session.alerta.correoU=req.body.correo
                                                             console.log("contraseña incorrecta")
                                                             res.redirect('back')
                                                   }
@@ -71,6 +74,7 @@ router.post('/login', async (req, res) => {
                                                  
                                                   req.session.alerta.estado = 1
                                                   req.session.alerta.correo = "Correo incorrecto o no ingresado"
+                                                  req.session.alerta.correoU=req.body.correo
                                                   //console.log("sin registro")
                                                   res.redirect('back')
                                         }

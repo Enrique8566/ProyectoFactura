@@ -50,7 +50,7 @@ router.get('/guardarFactura', (req, res) => {
                 FechaRecepcion: "null",
                 Comentario: "null"
             }
-            req.session.prueba="prueba"
+           
     
             
             if(req.session.datosC!=null){
@@ -123,8 +123,8 @@ router.post('/guardarFactura', (req, res) => {
 
     //declara la cooki el el post  con los las variables ya declaradas
     req.session.datosC = datosC
-    console.log("galleta:")
-    console.log(req.session.datosC)
+    //console.log("galleta:")
+    //console.log(req.session.datosC)
 
     req.session.value = {
         estado: 0,
@@ -162,8 +162,8 @@ router.post('/guardarFactura', (req, res) => {
         conection.query(scrp,
             (err, resultado) => {
                 if (err) throw err;
-                console.log('Registro guardado ' + resultado)
-                console.log(resultado)
+                //console.log('Registro guardado ' + resultado)
+                //console.log(resultado)
                 req.session.value=null
                 req.session.datosC = null
                 res.redirect('/router/datos')
